@@ -21,13 +21,25 @@ fn vec_factory() -> Vec<i32> {
 	vec
 }
 
+fn foo() -> i32 {
+	let mut n = 5;
+	n += 1;
+	n
+}
+
+fn foobox() -> i32 {
+	let mut n = Box::new(5);
+	*n += 1;
+	*n
+}
+
 fn main() {
     //let f = factory_fail_1();
 	//let f = factory_fail_2();
 	//let f = factory_fail_3();
 	//let f = factory_fail_4();
 	//let f = factory_fail_5();
-	let f = factory_fail_6();
+	let f = factory_works_6();
 	
 	let answer = f(4);
 	assert_eq!(vec![1, 2, 3, 4], answer);
@@ -41,6 +53,11 @@ fn main() {
 	
 	let answer = vec_factory();
 	assert_eq!(vec![1, 2, 3, 4], answer);
+	
+	let k = foo();
+	println!("k = {}", k);
+	let k = foobox();
+	println!("k = {}", k);
 }
 
 // Error message for this one isn't too clear
@@ -84,11 +101,20 @@ fn wrong_factory_works() -> Box<Fn(i32) -> i32> {
 
     Box::new(move |x| x + num)
 }
-// It seems like its a pretty fundamental thing, https://doc.rust-lang.org/std/cell/
-// We can't use their vector example easily since we can't guarantee that different
-// threads will modify the vector, so either we use the shared mutable state cell pointers
-// or I think closer to the spirit of this example we use the to_owned call
-fn factory_fail_6() -> Box<Fn(i32) -> Vec<i32>> {
+// It seems like its a pretty fundamental thing, from the page on ownership
+// First, any borrow must last for a smaller scope than the owner. Second, you may have one or the other of these two kinds of borrows, but not both at the same time:
+
+//  - 0 to N references (&T) to a resource.
+//  - exactly one mutable reference (&mut T)
+// This is starting to make sense now, what is failing is similar to how in C, you can't 
+// allocate on the stack and then expect to manipulate the piece of memory as if it was on the heap.
+fn factory_works_6() -> Box<Fn(i32) -> Vec<i32>> {
     let vec = vec![1, 2, 3];
     Box::new(move |n| {let mut vec = vec.to_vec(); vec.push(n); vec})
 }
+
+// fn factory_fails_7() -> Box<Fn(i32) -> Vec<i32>> {
+	// let mut vec = vec![1, 2, 3];
+	// let mut vbox = Box::new(vec);
+	// Box::new(move |n| {(*vbox).push(n); *vbox})
+// }
