@@ -1,0 +1,4 @@
+[package]
+name = "concurrency_playtime"
+version = "0.1.0"
+authors = ["sarostru <scott@cscabal.com>"]
