@@ -5,3 +5,4 @@
 * [Macros] (https://doc.rust-lang.org/book/macros.html) in the rust book
 * [Syntax Extensions] (https://doc.rust-lang.org/book/compiler-plugins.html) look useful.
  * The roman numeral macro example is nice too
+* [Traits] (https://llogiq.github.io/2015/07/30/traits.html)
