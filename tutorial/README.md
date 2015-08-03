@@ -13,3 +13,5 @@
 * [Rust is Great, but only if you can pry C++ from my cold dead hands] (http://www.viva64.com/en/b/0324/)
 * [Interview with Graydon] (http://www.infoq.com/news/2012/08/Interview-Rust)
  * Best part, Question: "Why would developers choose Rust?", Graydon: "our target audience is frustrated C++ developers."
+* [Embedded Rust] (http://www.reddit.com/r/rust/comments/21qogc/im_making_a_note_here_huge_embedded_success/)
+* [Rust for ARM] (http://antoinealb.net/programming/2015/05/01/rust-on-arm-microcontroller.html)
