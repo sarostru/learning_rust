@@ -10,3 +10,6 @@
 * [Traits] (https://llogiq.github.io/2015/07/30/traits.html), detailed blog post covering all of the built in rust type traits (Haskell type classes)
 * [Copy on Write] (https://llogiq.github.io/2015/07/09/cow.html), short blog post showing a use case for the COW functionality
 * [Thread Safety] (http://manishearth.github.io/blog/2015/05/30/how-rust-achieves-thread-safety/), detailed post going through how rust achieves thread safety and what that means exactly 
+* [Rust is Great, but only if you can pry C++ from my cold dead hands] (http://www.viva64.com/en/b/0324/)
+* [Interview with Graydon] (http://www.infoq.com/news/2012/08/Interview-Rust)
+ * Best part, Question: "Why would developers choose Rust?", Graydon: "our target audience is frustrated C++ developers."
