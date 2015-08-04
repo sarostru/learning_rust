@@ -32,10 +32,33 @@ fn tokenize(s: &str) -> Vec<String> {
 		.collect::<Vec<_>>()
 }
 
-struct Node {
-	value: Option<String>,
-	children: Vec<Box<Node>>,
-}
+
+// Tried again, but its also broken
+// enum SExpression {
+	// Literal(String),
+	// Internal(Vec<Box<SExpression>>),
+// }
+
+// fn make_tree_from_tokens(tokens: Vec<String>) {
+	// let mut root = SExpression::Internal {vec![]};
+	// let mut curr: Vec<Box<SExpression>> = vec![];
+	// for token in &tokens {
+		// match token {
+			// "(" => {
+				
+			// },
+			// ")" => {
+			// },
+			// _ => {
+			// }
+		// }
+	// }
+// }
+
+// struct Node {
+	// value: Option<String>,
+	// children: Vec<Box<Node>>,
+// }
 
 /// Need to place the tokens into a Tree of Tokens
 /// This approach is very broken, stopping for now
