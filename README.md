@@ -3,6 +3,8 @@ Rust Tutorials and Small Projects
 
 Most examples are from the [Rust Book] (https://doc.rust-lang.org/book/README.html)
 
+Important Examples are at [Rust by Example] (http://rustbyexample.com/index.html)
+
 Before digging in, checkout the syntax in the [Closures Section] (https://doc.rust-lang.org/book/closures.html) as they are used implicitly throughout.
 
 ##Collection of Links
