@@ -1,4 +1,9 @@
-
+//! Quantified Boolean Formulae 
+//!
+//! Implementation of QBF as used as an example in Taha's paper 
+//! [DSL in MetaOCaml, Haskell, and C++] (http://www.cs.rice.edu/~taha/publications/journal/dspg04b.pdf)
+//!
+//! Implementation appraoch heavily inspired by Peter Norvig's [Lisp in Python] (http://norvig.com/lispy.html)
 use std::io;
 use std::io::Write;
 use std::str::FromStr;
@@ -34,56 +39,64 @@ fn tokenize(s: &str) -> Vec<String> {
 
 
 // Tried again, but its also broken
-// enum SExpression {
-	// Literal(String),
-	// Internal(Vec<Box<SExpression>>),
-// }
+enum SExpression {
+	Literal(String),
+	Internal(Vec<Box<SExpression>>),
+	Root,
+}
 
-// fn make_tree_from_tokens(tokens: Vec<String>) {
-	// let mut root = SExpression::Internal {vec![]};
-	// let mut curr: Vec<Box<SExpression>> = vec![];
-	// for token in &tokens {
-		// match token {
-			// "(" => {
-				
-			// },
-			// ")" => {
-			// },
-			// _ => {
-			// }
-		// }
-	// }
-// }
+fn make_tree(tokens: &Vec<String>) -> Box<SExpression> {
+	let mut tokens = (*tokens).to_vec();
+	tokens.reverse();
+	make_tree_from_tokens(&mut tokens)
+}
 
-// struct Node {
-	// value: Option<String>,
-	// children: Vec<Box<Node>>,
-// }
-
-/// Need to place the tokens into a Tree of Tokens
-/// This approach is very broken, stopping for now
-// fn make_tree_from_tokens(tokens: Vec<String>) -> Box<Node> {
-	// let mut root = Box::new(Node { value: None, children: vec![]});
-	// if tokens.is_empty() {
-		// println!("Error: Unexpected EOF");
-	// }
-	// let mut parent = &root; 
-	// let mut child = &root;
-	// for token in &tokens {
-		// match token {
-			// "(" => {
-				// child = Box::new(Node { value: None, children: vec![]}));
-			// },
-			// ")" => {
-				// curr_node.children.push(curr);
-			// },
-			// _ => {
-				// curr.push(Box::new(Node { value: Some(token), children: vec![]}));
-			// }
-		// }
-	// }
-	// root
-// }
+fn make_tree_from_tokens(tokens: &mut Vec<String>) -> Box<SExpression> {
+	let mut curr = Box::new(SExpression::Root);
+	let token = (*tokens).pop();
+	let token = match token {
+		Some(x) => x,
+		None => {
+			println!("Error: Unexpected end of input");
+			return curr;
+		},
+	};
+	if &token == "(" {
+		println!("Matched opening '('");
+		curr = Box::new(SExpression::Internal(vec![]));
+		loop {
+			let last_token = match tokens.last() {
+				Some(x) => x.to_string(),
+				None => {
+					println!("Error: Syntax Error");
+					break;
+				},
+			};
+			match last_token.as_ref() {
+				")" => {
+					println!("Matched closing ')'");
+					break;
+				},
+				_ => {
+					match *curr {
+						SExpression::Internal(ref mut v) => v.push(make_tree_from_tokens(tokens)),
+						SExpression::Literal(ref s) => break,
+						SExpression::Root => break,
+					}
+				}
+			}
+		}
+		(*tokens).pop();
+		return curr;
+	} else if &token == ")" {
+		println!("Error: Syntax Error");
+		return curr;
+	} else {
+		println!("Matched '{}'", token);
+		return Box::new(SExpression::Literal(token));
+	}
+	return curr
+}
 
 
 fn eval(e: Expression) -> bool {
@@ -117,7 +130,7 @@ fn main() {
 		for tok in &tokens {
 			print!("{}, ", tok);
 		}
-		//let tree = make_tree_from_tokens(tokens);
+		let tree = make_tree(&tokens);
 		
 		let e = match input.trim().to_ascii_lowercase().parse::<Expression>() {
 			Ok(e) => e,
