@@ -130,6 +130,7 @@ fn main() {
 		for tok in &tokens {
 			print!("{}, ", tok);
 		}
+		println!("");
 		let tree = make_tree(&tokens);
 		
 		let e = match input.trim().to_ascii_lowercase().parse::<Expression>() {

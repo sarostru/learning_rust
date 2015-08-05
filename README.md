@@ -10,6 +10,7 @@ Before digging in, checkout the syntax in the [Closures Section] (https://doc.ru
 * [Rust for the Functional Programmer] (http://science.raphael.poss.name/rust-for-functional-programmers.html)
  * No guaranteed tail call optimization, though they want to do it, [postpone discussion] (https://github.com/rust-lang/rfcs/pull/81)
 * [Pointers in Rust] (http://words.steveklabnik.com/pointers-in-rust-a-guide), this is a quite complete description
+* [Matching Blogpost] (http://blog.rust-lang.org/2015/04/17/Enums-match-mutation-and-moves.html), pretty essential information on matching
 * Blogpost on using the [Option type in rust] (http://hoverbear.org/2014/08/12/option-monads-in-rust/)
  * The comments on the [related reddis thread] (http://www.reddit.com/r/rust/comments/2dnx7k/exploring_the_option_monad_with_rust/) explain something that I was finding confusing.  Rust doesn't have the generic Monad support like Haskell apparently due to a limitation in the current compiler implementation.
 * [Macros] (https://doc.rust-lang.org/book/macros.html) in the rust book
